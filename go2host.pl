@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-my $conf="maatdev.conf";
+my $conf="myhosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/home/sgaudart/sshpass"; # path to the command sshpass
 my $line;
