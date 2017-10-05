@@ -6,12 +6,12 @@ The script allows to present a list of server in order to connect in ssh.
 The script lets you jump quickly to a server.  
 
 
-
 ## Requirement
 
 You need to create a config file. The configuration file (variable $conf) must be in the format:  
 
-    id; hostname; ipaddress; root_password
+    id; hostname; ipaddress; login; password
+    100;host1;10.0.0.1;root;supersecurepassword
     
 Before executing the script, please change the variables :
 
