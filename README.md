@@ -8,15 +8,15 @@ The script lets you jump quickly to a server.
 
 ## Requirement
 
-You need to create a config file. The configuration file (variable $conf) must be in the format:  
-
-    id; hostname; ipaddress; login; password
-    100;host1;10.0.0.1;root;supersecurepassword
-    
-Before executing the script, please change the variables :
-
-* $conf => your conf file with hostnames and @ip (respect specific file format)
-* $sshpass => path to the binary sshpass
+* SSH accessibility to your servers
+* Need a conf file, it must be in the format:  
+```
+id; hostname; ipaddress; login; password
+100;host1;10.0.0.1;root;supersecurepassword
+```
+* Need to change inside the script go2host.pl about 2 variables :  
+  - $conf => your conf file with hostnames and @ip (respect specific file format)
+  - $sshpass => path to the binary sshpass
 
 ## Utilization
 
