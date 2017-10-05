@@ -6,11 +6,11 @@
 use strict;
 use warnings;
 
-my $conf="myhosts.conf";
+my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/home/sgaudart/sshpass"; # path to the command sshpass
 my $line;
-my ($id,$hostname,$ip,$passwd);
+my ($id,$hostname,$ip,$login,$passwd);
 my %iphash;
 
 open (FD, "$conf") or die "Can't open conf  : $conf\n" ; # reading
@@ -18,7 +18,7 @@ while (<FD>)
 {
 	$line=$_;
 	chomp($line); # delete the carriage return
-	($id, $hostname, $ip, $passwd) = split(';', $line);
+	($id, $hostname, $ip, $login, $passwd) = split(';', $line);
 	$iphash{$id}=$ip;
 	#print "[DEBUG] iphash{$id}=$ip\n";
 	if (defined $filter)
@@ -44,4 +44,4 @@ chomp $choice;
 if ($choice eq "") { exit; }
 
 #print "[DEBUG]: ip=$iphash{$choice}\n";
-exec("$sshpass -p $passwd ssh root\@$iphash{$choice}");
+exec("$sshpass -p $passwd ssh $login\@$iphash{$choice}");
