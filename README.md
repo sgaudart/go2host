@@ -18,6 +18,11 @@ id; hostname; ipaddress; login; password
   - $conf => your conf file with hostnames and @ip (respect specific file format)
   - $sshpass => path to the binary sshpass
 
+## Todo
+
+* manage fields (first line) in conf file => (id),hostname,(desc),(ipaddress),(login,password)
+* if we type the hostname (not the id) => detect the right host in the list
+
 ## Utilization
 
 **Example1 (no filter) :**
