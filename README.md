@@ -22,6 +22,7 @@ id; hostname; ipaddress; login; password
 
 * manage fields (first line) in conf file => (id),hostname,(desc),(ipaddress),(login,password)
 * if we type the hostname (not the id) => detect the right host in the list
+* manage the case : unknown id asked by the user
 
 ## Utilization
 
