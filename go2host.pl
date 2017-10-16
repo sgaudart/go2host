@@ -9,7 +9,7 @@ use warnings;
 my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/home/sgaudart/sshpass"; # path to the command sshpass
-my $line;
+my ($line,$theline);
 my @row;
 my @data;
 my ($id,$hostname,$ip,$login,$passwd);
@@ -47,22 +47,27 @@ while (<FD>)
    @data = split(';',$line);
 
    $sshdata{$data[$id_pos]}{ip}=$data[$ip_pos];
-   $sshdata{$data[$id_pos]}{login}=$data[$login_pos];
-   $sshdata{$data[$id_pos]}{password}=$data[$password_pos];
+   if (defined $login_pos) { $sshdata{$data[$id_pos]}{login}=$data[$login_pos]; }
+   if (defined $password_pos) { $sshdata{$data[$id_pos]}{password}=$data[$password_pos]; }
    #print "[DEBUG] iphash{$id}=$ip\n";
+   
+   if (defined $descr_pos) { $theline="$data[$id_pos]\t$data[$hostname_pos]\t$data[$descr_pos]\n"; }
+   else { $theline = "$data[$id_pos]\t$data[$hostname_pos]\n"; }
+
    if (defined $filter)
    {
       # must filter 
       if ($line =~ /$filter/)
       {
          # filter match !
-         print "$data[$id_pos]\t$data[$hostname_pos]\n";
+         print "$theline";
       }
    }
    else
    {
-      print "$data[$id_pos]\t$data[$hostname_pos]\n";
+      print "$theline";
    }
+
 }
 close FD;
 
@@ -72,5 +77,16 @@ my $choice = <STDIN>;
 chomp $choice;
 if ($choice eq "") { exit; }
 
-#print "[DEBUG]: choice=$choice sshdata{$choice}{ip}=$sshdata{$choice}{ip}\n";
-exec("$sshpass -p $sshdata{$choice}{password} ssh $sshdata{$choice}{login}\@$sshdata{$choice}{ip}");
+print "[DEBUG]: choice=$choice sshdata{$choice}{ip}=$sshdata{$choice}{ip}\n";
+
+# SSH CONNECTION
+if ((defined $login_pos) && (defined $password_pos))
+{
+   # connection with login/password
+   exec("$sshpass -p $sshdata{$choice}{password} ssh $sshdata{$choice}{login}\@$sshdata{$choice}{ip}");
+}
+else
+{
+   # connection simple
+   exec("ssh $sshdata{$choice}{ip}");
+}
