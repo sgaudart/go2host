@@ -20,9 +20,9 @@ id; hostname; ipaddress; (descr; login; password)
 
 ## Todo
 
-* manage fields (first line) in conf file => (id),hostname,(desc),(ipaddress),(login,password)
+* row id optional => the script provides an id that starts at 100
 * if we type the hostname (not the id) => detect the right host in the list
-* manage the case : unknown id asked by the user
+* management of #tags (in addition to or instead of the description field)
 
 ## Utilization
 
