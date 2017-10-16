@@ -9,10 +9,10 @@ The script lets you jump quickly to a server.
 ## Requirement
 
 * SSH accessibility to your servers
-* Need a conf file, it must be in the format:  
+* Need a conf file, it must be in the format below (descr,login,password are optionals) :  
 ```
-id; hostname; ipaddress; login; password
-100;host1;10.0.0.1;root;supersecurepassword
+id; hostname; ipaddress; (descr; login; password)
+100;host1;10.0.0.1;(description here;root;supersecurepassword)
 ```
 * Need to change inside the script go2host.pl about 2 variables :  
   - $conf => your conf file with hostnames and @ip (respect specific file format)
