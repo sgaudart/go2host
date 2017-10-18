@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-my $conf="hosts.conf";
+my $conf="hosts2.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/home/sgaudart/sshpass"; # path to the command sshpass
 my ($line,$theline);
@@ -18,6 +18,7 @@ my %sshdata;
 my $i=0; # count line in conf file
 my $index=0; # index pour @row
 
+START:
 open (FD, "$conf") or die "Can't open conf  : $conf\n" ; # reading
 while (<FD>)
 {
@@ -72,12 +73,13 @@ while (<FD>)
 close FD;
 
 # Ask the ID to the user
-print "Your choice:";
+print "Choice id:";
 my $choice = <STDIN>;
 chomp $choice;
 if ($choice eq "") { exit; }
+if (! defined $sshdata{$choice}{ip}) { goto START; }
 
-print "[DEBUG]: choice=$choice sshdata{$choice}{ip}=$sshdata{$choice}{ip}\n";
+#print "[DEBUG]: choice=$choice sshdata{$choice}{ip}=$sshdata{$choice}{ip}\n";
 
 # SSH CONNECTION
 if ((defined $login_pos) && (defined $password_pos))
