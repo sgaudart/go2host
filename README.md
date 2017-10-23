@@ -20,7 +20,7 @@ id; hostname; ipaddress; (descr; login; password)
 
 ## Todo
 
-* display information in right columns (instead of tabulations)
+* ~~display information in right columns (instead of tabulations)~~
 * row id optional => the script provides an id that starts at 100
 * if we type the hostname (not the id) => detect the right host in the list
 * management of #tags (in addition to or instead of the description field)
