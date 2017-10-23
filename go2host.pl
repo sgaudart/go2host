@@ -6,15 +6,15 @@
 use strict;
 use warnings;
 
-my $conf="hosts2.conf";
+my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/home/sgaudart/sshpass"; # path to the command sshpass
-my ($line,$theline);
+my ($line,$display);
 my @row;
-my @data;
-my ($id,$hostname,$ip,$login,$passwd);
-my ($id_pos,$hostname_pos,$descr_pos,$ip_pos,$login_pos,$password_pos); # position of each row in conf file
-my %sshdata;
+my @linetab;
+my %conf; # store each line of the conf file
+my @dataline; # store only the current line (format array)
+my %pos; # $pos{field} => return the index of the row field in the conf file
 my $i=0; # count line in conf file
 my $index=0; # index pour @row
 
@@ -29,66 +29,66 @@ while (<FD>)
    if ($i eq 1)
    {
       @row = split(';',$line);
-      # first line => we feed vars *_pos
       foreach my $field (@row)
       {
-         #print "row[$index]=$field\n";
-         if ($field eq "id") { $id_pos=$index; }
-         if ($field eq "hostname") { $hostname_pos=$index; }
-         if ($field eq "descr") { $descr_pos=$index; }
-         if ($field eq "ip") { $ip_pos=$index; }
-         if ($field eq "login") { $login_pos=$index; }
-         if ($field eq "password") { $password_pos=$index; }
-
+         #print "pos{$field}=$index\n";
+         $pos{$field}=$index;
          $index++;
       }
    }
 
-   #($id, $hostname, $ip, $login, $passwd) = split(';', $line);
-   @data = split(';',$line);
+   @dataline = split(';',$line);
 
-   $sshdata{$data[$id_pos]}{ip}=$data[$ip_pos];
-   if (defined $login_pos) { $sshdata{$data[$id_pos]}{login}=$data[$login_pos]; }
-   if (defined $password_pos) { $sshdata{$data[$id_pos]}{password}=$data[$password_pos]; }
-   #print "[DEBUG] iphash{$id}=$ip\n";
-   
-   if (defined $descr_pos) { $theline="$data[$id_pos]\t$data[$hostname_pos]\t$data[$descr_pos]\n"; }
-   else { $theline = "$data[$id_pos]\t$data[$hostname_pos]\n"; }
-
-   if (defined $filter)
+   $conf{$dataline[$pos{id}]}{ip}=$dataline[$pos{ip}];
+   $conf{$dataline[$pos{id}]}{hostname}=$dataline[$pos{hostname}];
+   if (defined $pos{login}) { $conf{$dataline[$pos{id}]}{login}=$dataline[$pos{login}]; }
+   if (defined $pos{password}) { $conf{$dataline[$pos{id}]}{password}=$dataline[$pos{password}]; }
+   if (defined $pos{descr})
    {
-      # must filter 
-      if ($line =~ /$filter/)
-      {
-         # filter match !
-         print "$theline";
-      }
+      $conf{$dataline[$pos{id}]}{descr}=$dataline[$pos{descr}];
+      #$display="$dataline[$pos{id}]\t$dataline[$pos{hostname}]\t$dataline[$pos{descr}]\n";
+      printf("%-8s %-15s %-10s \n", $dataline[$pos{id}], $dataline[$pos{hostname}], $dataline[$pos{descr}]);
    }
    else
    {
-      print "$theline";
+      printf("%-8s %-15s \n", $dataline[$pos{id}], $dataline[$pos{hostname}]);
    }
+
+#   if (defined $filter)
+#   {
+#      # must filter 
+#      if ($line =~ /$filter/)
+#      {
+#         # filter match !
+#         print "$display";
+#      }
+#   }
+#   else
+#   {
+#      print "$display";
+#      #printf("%-8s %-15s %-10s \n", $dataline[$pos{id}], $dataline[$pos{hostname}], $dataline[$pos{descr}]) ;
+#   }
 
 }
 close FD;
 
 # Ask the ID to the user
-print "Choice id:";
-my $choice = <STDIN>;
-chomp $choice;
-if ($choice eq "") { exit; }
-if (! defined $sshdata{$choice}{ip}) { goto START; }
-
-#print "[DEBUG]: choice=$choice sshdata{$choice}{ip}=$sshdata{$choice}{ip}\n";
+print "Choose an id:";
+my $id = <STDIN>;
+chomp $id;
+if ($id eq "") { exit; }
+if (! defined $conf{$id}{ip}) { goto START; }
 
 # SSH CONNECTION
-if ((defined $login_pos) && (defined $password_pos))
+if ((defined $pos{login}) && (defined $pos{password}))
 {
    # connection with login/password
-   exec("$sshpass -p $sshdata{$choice}{password} ssh $sshdata{$choice}{login}\@$sshdata{$choice}{ip}");
+   #print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
+   exec("$sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}");
 }
 else
 {
    # connection simple
-   exec("ssh $sshdata{$choice}{ip}");
+   #print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
+   exec("ssh $conf{$id}{ip}");
 }
