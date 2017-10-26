@@ -13,6 +13,7 @@ The script lets you jump quickly to a server.
 ```
 id; hostname; ipaddress; (descr; login; password)
 100;host1;10.0.0.1;(description_with_no_space;root;supersecurepassword)
+101;host2;10.8.0.5;(description_with_no_space;newlogin;supersecurepassword)
 ```
 * Need to change inside the script go2host.pl about 2 variables :  
   - $conf => your conf file with hostnames and @ip (respect specific file format)
