@@ -21,9 +21,8 @@ id; hostname; ipaddress; (descr; login; password)
 ## Todo
 
 * ~~display information in right columns (instead of tabulations)~~
-* possible to filter during the question : Choose an id (or filter)
+* ~~possible to filter during the question : Choose an id (or filter)~~
 * row id optional => the script provides an id that starts at 100
-* if we type the hostname (not the id) => detect the right host in the list
 * management of #tags (in addition to or instead of the description field)
 
 ## Utilization
@@ -31,15 +30,15 @@ id; hostname; ipaddress; (descr; login; password)
 **Example1 (no filter) :**
 ```
 /go2host.pl 
-100	host1
-101	host2
-102	host3
-104	host4
-105	web1
-106	web2
-107	web3
-108	web4
-Your choice: 100
+100      host1
+101      host2
+102      host3
+104      host4
+105      web1
+106      web2
+107      web3
+108      web4
+Type id (or filter) : 100
 You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@host1 ~]# 
@@ -47,11 +46,11 @@ Last login: Thu Oct  5 11:14:15 2017
 **Example2 (with filter) :**
 ```
 /go2host.pl web
-105	web1
-106	web2
-107	web3
-108	web4
-Your choice: 108
+105      web1
+106      web2
+107      web3
+108      web4
+Type id (or filter) : 108
 You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@web4 ~]# 
