@@ -84,12 +84,12 @@ if (! defined $conf{$id}{ip}) { $filter=$id; goto START; }
 if ((defined $pos{login}) && (defined $pos{password}))
 {
    # connection with login/password
-   print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
+   #print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
    exec("$sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}");
 }
 else
 {
    # connection simple
-   print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
+   #print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
    exec("ssh $conf{$id}{ip}");
 }
