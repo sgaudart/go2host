@@ -73,21 +73,23 @@ while (<FD>)
 close FD;
 
 # Ask the ID to the user
-print "Choose an id:";
+print "Type id (or filter) :";
 my $id = <STDIN>;
 chomp $id;
 if ($id eq "") { exit; }
-if (! defined $conf{$id}{ip}) { goto START; }
+if (! defined $conf{$id}{ip}) { $filter=$id; goto START; }
 
 
 # SSH CONNECTION
 if ((defined $pos{login}) && (defined $pos{password}))
 {
    # connection with login/password
+   print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
    exec("$sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}");
 }
 else
 {
    # connection simple
+   print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
    exec("ssh $conf{$id}{ip}");
 }
