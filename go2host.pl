@@ -47,11 +47,11 @@ while (<FD>)
    {
       $conf{$dataline[$pos{id}]}{descr}=$dataline[$pos{descr}];
       #$display="$dataline[$pos{id}]\t$dataline[$pos{hostname}]\t$dataline[$pos{descr}]\n";
-      $display="printf(\"%-8s %-15s %-10s \n\", $dataline[$pos{id}], $dataline[$pos{hostname}], $dataline[$pos{descr}]);";
+      $display="printf(\"%-8s %-15s %-10s \n\", $dataline[$pos{id}], \"$dataline[$pos{hostname}]\", \"$dataline[$pos{descr}]\");";
    }
    else
    {
-      $display="printf(\"%-8s %-15s \n\",$dataline[$pos{id}],$dataline[$pos{hostname}]);";
+      $display="printf(\"%-8s %-15s \n\",$dataline[$pos{id}],\"$dataline[$pos{hostname}]\");";
    }
  
    
