@@ -10,7 +10,6 @@ my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/usr/bin/sshpass"; # path to the command sshpass
 my ($line,$display);
-my @row;
 my @linetab;
 my %conf; # store each line of the conf file
 my @dataline; # store only the current line (format array)
@@ -25,19 +24,17 @@ while (<FD>)
    $i++;
    $line=$_;
    chomp($line); # delete the carriage return
+   @dataline = split(';',$line); # split current line
    
    if ($i eq 1)
    {
-      @row = split(';',$line);
-      foreach my $field (@row)
+      foreach my $field (@dataline)
       {
          #print "pos{$field}=$index\n";
          $pos{$field}=$index;
          $index++;
       }
    }
-
-   @dataline = split(';',$line); # split current line
 
    $conf{$dataline[$pos{id}]}{ip}=$dataline[$pos{ip}];
    $conf{$dataline[$pos{id}]}{hostname}=$dataline[$pos{hostname}];
@@ -73,7 +70,7 @@ while (<FD>)
 close FD;
 
 # Ask the ID to the user
-print "Type id (or filter) :";
+print "Type id (or filter) : ";
 my $id = <STDIN>;
 chomp $id;
 if ($id eq "") { exit; }
@@ -84,12 +81,12 @@ if (! defined $conf{$id}{ip}) { $filter=$id; goto START; }
 if ((defined $pos{login}) && (defined $pos{password}))
 {
    # connection with login/password
-   #print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
+   print "[DEBUG]: id=$id => $sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}\n";
    exec("$sshpass -p $conf{$id}{password} ssh $conf{$id}{login}\@$conf{$id}{ip}");
 }
 else
 {
    # connection simple
-   #print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
+   print "[DEBUG]: id=$id => ssh $conf{$id}{ip}\n";
    exec("ssh $conf{$id}{ip}");
 }
