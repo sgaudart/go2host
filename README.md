@@ -4,6 +4,7 @@
 
 The script allows to present a list of server in order to connect in ssh.  
 The script lets you jump quickly to a server.  
+You can use an argument to filter the given list in the configuration file (see [Example2](https://github.com/sgaudart/go2host/edit/master/README.md#Utilization))
 
 
 ## Requirement
@@ -30,28 +31,28 @@ id; hostname; ipaddress; (descr; login; password)
 
 **Example1 (no filter) :**
 ```
-/go2host.pl 
-100      host1
-101      host2
-102      host3
+./go2host.pl 
+101      host1
+102      host2
+103      host3
 104      host4
-105      web1
-106      web2
-107      web3
-108      web4
-Type id (or filter) : 100
+401      web1
+402      web2
+403      web3
+404      web4
+Type id (or filter) : 101
 You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@host1 ~]# 
 ```
 **Example2 (with filter) :**
 ```
-/go2host.pl web
-105      web1
-106      web2
-107      web3
-108      web4
-Type id (or filter) : 108
+./go2host.pl web or ./go2host.pl ^4
+401      web1
+402      web2
+403      web3
+404      web4
+Type id (or filter) : 404
 You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@web4 ~]# 
