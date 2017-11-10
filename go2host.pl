@@ -6,7 +6,7 @@
 #use strict;
 #use warnings;
 
-my $conf="hosts2.conf";
+my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/usr/bin/sshpass"; # path to the command sshpass
 my ($line,$display,$rowname);
@@ -85,12 +85,12 @@ if (! defined $conf{$choice}{ip}) { $filter=$choice; goto START; }
 if ((defined $pos{login}) && (defined $pos{password}))
 {
    # connection with login/password
-   print "[DEBUG]: id=$choice => $sshpass -p $conf{$choice}{password} ssh $conf{$choice}{login}\@$conf{$choice}{ip}\n";
+   #print "[DEBUG]: id=$choice => $sshpass -p $conf{$choice}{password} ssh $conf{$choice}{login}\@$conf{$choice}{ip}\n";
    exec("$sshpass -p $conf{$choice}{password} ssh $conf{$choice}{login}\@$conf{$choice}{ip}");
 }
 else
 {
    # connection simple
-   print "[DEBUG]: id=$choice => ssh $conf{$choice}{ip}\n";
+   #print "[DEBUG]: id=$choice => ssh $conf{$choice}{ip}\n";
    exec("ssh $conf{$choice}{ip}");
 }
