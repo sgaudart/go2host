@@ -21,6 +21,10 @@ id; hostname; (ip; descr; login; password)
   - $conf => your conf file with hostnames and @ip (respect specific file format)
   - $sshpass => path to the binary sshpass
 
+## Tested with 
+
+* Perl v5.22.1
+
 ## Todo
 
 * ~~display information in right columns (instead of tabulations)~~
