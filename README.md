@@ -2,9 +2,9 @@
 
 ## Presentation
 
-The script allows to present a list of server in order to connect in ssh.  
+The script allows to present a list of server ([from config file](https://github.com/sgaudart/go2host/blob/master/hosts.conf)) in order to connect in ssh   
 The script lets you jump quickly to a server.  
-You can use an argument to filter the given list in the configuration file (see [Example2](https://github.com/sgaudart/go2host/edit/master/README.md#Utilization))
+You can use an argument to filter the given servers list.
 
 
 ## Requirement
