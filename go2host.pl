@@ -77,8 +77,9 @@ close FD;
 print "Type id (or filter) : ";
 my $choice = <STDIN>;
 chomp $choice;
-if ($choice eq "") { exit; }
-if (! defined $conf{$choice}{ip}) { $filter=$choice; goto START; }
+if ($choice eq "") { exit; } # no choice => exit
+if (! defined $conf{$choice}{hostname}) { $filter=$choice; goto START; } # not id => filter
+if (! defined $conf{$choice}{ip}) { $conf{$choice}{ip} = $conf{$choice}{hostname}; } # no known ip => use hostname for ssh
 
 
 # SSH CONNECTION
