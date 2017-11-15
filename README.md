@@ -29,8 +29,9 @@ id; hostname; (ip; descr; login; password)
 
 * ~~display information in right columns (instead of tabulations)~~
 * ~~possible to filter during the question : Choose an id (or filter)~~
-* row id optional => the script provides an id that starts at 1.
-* management of #tags (in addition to or instead of the description field)
+* ~~row id optional => the script provides an id that starts at 1.~~
+* manage the first row of column names (not show when filter or when no id in conf file)
+* manage #tags ? (in addition to or instead of the description field)
 
 ## Utilization
 
