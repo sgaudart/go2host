@@ -10,9 +10,9 @@ You can use an argument to filter the given servers list.
 ## Requirement
 
 * SSH accessibility to your servers
-* Need a conf file, it must be in the format below (ip, descr,login,password are optionals) :  
+* Need a conf file, it must be in the format below (id,ip,descr,login,password are optionals) :  
 ```
-id; hostname; (ip; descr; login; password)
+(id;)hostname;(ip;descr;login;password)
 100;host1;(10.0.0.1;description_with_no_space;root;supersecurepassword)
 101;host2;(10.8.0.5;description_with_no_space;newlogin;supersecurepassword)
 ```
