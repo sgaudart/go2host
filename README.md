@@ -10,13 +10,15 @@ You can use an argument to filter the given servers list.
 ## Requirement
 
 * SSH accessibility to your servers
+* sshpass if you want to use login/password for the connection
 * Need a conf file, it must be in the format below (id,ip,descr,login,password are optionals) :  
 ```
 (id;)hostname;(ip;descr;login;password)
 100;host1;(10.0.0.1;description_with_no_space;root;supersecurepassword)
 101;host2;(10.8.0.5;description_with_no_space;newlogin;supersecurepassword)
 ```
-* ip is optionnal but hostname is compulsory, you can add the ip info that will be used preferably against the hostname
+  ip is optionnal but hostname is compulsory, you can add the ip info that will be used preferably against the hostname
+
 * Need to change inside the script go2host.pl about 2 variables :  
   - $conf => your conf file with hostnames and @ip (respect specific file format)
   - $sshpass => path to the binary sshpass
