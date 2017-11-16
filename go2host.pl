@@ -13,9 +13,9 @@ my ($line,$display,$rowname);
 my %conf; # store each line of the conf file
 my @dataline; # store only the current line (format array)
 my %pos; # $pos{field} => return the index of the row field in the conf file
-my $i=0; # count line in conf file
 my $index=0; # index pour @row
-my $id=1;
+my $i=0; # index of the line
+my $id="id";
 
 START:
 open (FD, "$conf") or die "Can't open conf : $conf\n" ; # reading
@@ -43,7 +43,7 @@ while (<FD>)
    {
       $conf{$id}{$rowname}=$dataline[$pos{$rowname}];
    }
-   
+
    # PREPARE $display
    if (defined $pos{descr}) # we have description in the conf file
    {
@@ -68,6 +68,8 @@ while (<FD>)
    {
       eval $display;
    }
+
+   if ($i eq 1) { $id=0; } # init var $id
    $id++;
 
 }
