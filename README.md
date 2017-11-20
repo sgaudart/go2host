@@ -32,6 +32,7 @@ You can use an argument to filter the given servers list.
 * ~~display information in right columns (instead of tabulations)~~
 * ~~possible to filter during the question : Choose an id (or filter)~~
 * ~~row id optional => the script provides an id that starts at 1.~~
+* add option --ping (tell if hostname is alive) ?
 * better managemnt of the first row of column names (not show when filter)
 * manage #tags ? (in addition to or instead of the description field)
 
