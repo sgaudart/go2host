@@ -32,7 +32,7 @@ You can use an argument to filter the given servers list.
 * ~~display information in right columns (instead of tabulations)~~
 * ~~possible to filter during the question : Choose an id (or filter)~~
 * ~~row id optional => the script provides an id that starts at 1.~~
-* manage the first row of column names (not show when filter or when no id in conf file)
+* better managemnt of the first row of column names (not show when filter)
 * manage #tags ? (in addition to or instead of the description field)
 
 ## Utilization
@@ -40,6 +40,7 @@ You can use an argument to filter the given servers list.
 **Example1 (no filter) :**
 ```
 ./go2host.pl 
+id       hostname
 101      host1
 102      host2
 103      host3
@@ -56,6 +57,7 @@ Last login: Thu Oct  5 11:14:15 2017
 **Example2 (with filter) :**
 ```
 ./go2host.pl web or ./go2host.pl ^4
+id       hostname
 401      web1
 402      web2
 403      web3
