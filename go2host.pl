@@ -9,15 +9,14 @@
 my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/usr/bin/sshpass"; # path to the command sshpass
-my ($line,$display,$rowname);
+my ($line,$i,$index,$display,$rowname);
 my %conf; # store each line of the conf file
 my @dataline; # store only the current line (format array)
 my %pos; # $pos{field} => return the index of the row field in the conf file
-my $index=0; # index pour @row
-my $i=0; # index of the line
 my $id="id";
 
 START:
+$i=0; # init line index
 open (FD, "$conf") or die "Can't open conf : $conf\n" ; # reading
 while (<FD>)
 {
@@ -28,6 +27,7 @@ while (<FD>)
    
    if ($i eq 1)
    {
+      $index=0; # init
       foreach $rowname (@dataline)
       {
          #print "pos{$field}=$index\n";
