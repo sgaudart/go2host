@@ -10,7 +10,7 @@ my $conf="hosts.conf";
 my $filter = shift(@ARGV);
 my $sshpass="/usr/bin/sshpass"; # path to the command sshpass
 my ($line,$i,$index,$display,$rowname);
-my %conf; # store each line of the conf file
+my %conf; # store each line of the conf file like this $conf{id}{rowname}
 my @dataline; # store only the current line (format array)
 my %pos; # $pos{field} => return the index of the row field in the conf file
 my $id="id";
@@ -38,7 +38,7 @@ while (<FD>)
  
    if (defined $pos{id}) { $id=$dataline[$pos{id}]; }
 
-   # PREPATE %conf
+   # PREPARE %conf
    foreach $rowname (keys %pos)
    {
       $conf{$id}{$rowname}=$dataline[$pos{$rowname}];
@@ -58,7 +58,7 @@ while (<FD>)
    if (defined $filter)
    {
       # filter case
-      if ($line =~ /$filter/)
+      if (($line =~ /$filter/) || ($i eq 1))
       {
          # filter match !
          eval $display;
