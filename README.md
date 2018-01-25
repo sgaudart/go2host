@@ -3,9 +3,10 @@
 ## Presentation
 
 The script allows to present a list of server ([from config file](https://github.com/sgaudart/go2host/blob/master/hosts.conf)) in order to connect in ssh   
-The script lets you jump quickly to a server.  
-You can use an argument to filter the given servers list.
+The script lets you jump quickly to a server.
 
+You can use an argument to filter the given servers list.  
+If the filter gives you a single result, then automatic ssh connection to this unique host (see example Example 3).
 
 ## Requirement
 
@@ -25,16 +26,17 @@ You can use an argument to filter the given servers list.
 
 ## Tested with 
 
-* Perl v5.22.1
+* Perl v5.22.1 and v5.16.3
 
 ## Todo
 
-* ~~display information in right columns (instead of tabulations)~~
-* ~~possible to filter during the question : Choose an id (or filter)~~
-* ~~row id optional => the script provides an id that starts at 1.~~
-* ~~better managemnt of the first row of column names (not show when filter)~~
-* add option --ping (tell if hostname is alive) ?
-* manage #tags ? (in addition to or instead of the description field)
+- ~~display information in right columns (instead of tabulations)~~
+- ~~possible to filter during the question : Choose an id (or filter)~~
+- ~~row id optional => the script provides an id that starts at 1.~~
+- ~~better managemnt of the first row of column names (not show when filter)~~
+- ~~if the filter gives you a single result, automatic ssh connection to this unique host~~
+- add option --ping (tell if hostname is alive) ?
+
 
 ## Utilization
 
@@ -55,6 +57,7 @@ You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@host1 ~]# 
 ```
+
 **Example2 (with filter) :**
 ```
 ./go2host.pl web or ./go2host.pl ^4
@@ -67,4 +70,15 @@ Type id (or filter) : 404
 You are redirected to :
 Last login: Thu Oct  5 11:14:15 2017
 [root@web4 ~]# 
+```
+
+**Example3 (with filter for a single server) :**
+```
+./go2host.pl 404 or ./go2host.pl web4
+id       hostname
+404      web4
+You are redirected to :
+Last login: Thu Oct  5 11:14:15 2017
+[root@web4 ~]# 
+
 
